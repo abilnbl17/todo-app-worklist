@@ -1,33 +1,26 @@
-const { heroui } = require("@heroui/react");
+// module.exports = {
+//   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+//   theme: {
+//     extend: {},
+//   },
+//   plugins: [],
+// };
 
-module.exports = {
+// tailwind.config.js
+/** @type {import('tailwindcss').Config} */
+export default {
+  // Pastikan export default
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
+    // Jika Anda masih menggunakan @heroui/listbox atau semacamnya,
+    // pastikan path ke node_modules-nya disertakan jika mereka
+    // menghasilkan kelas Tailwind yang perlu di-scan.
+    // Contoh (jika @heroui/listbox juga menggunakan Tailwind di baliknya):
+    // "./node_modules/@heroui/**/**/*.{js,ts,jsx,tsx}",
   ],
-  plugins: [
-    heroui({
-      theme: {
-        extend: {
-          colors: {
-            white: "#FFFFFF",
-            black: "#000000",
-            blue: {
-              50: "#e6f1fe",
-              100: "#cce3fd",
-              200: "#99c7fb",
-              300: "#66aaf9",
-              400: "#338ef7",
-              500: "#006FEE",
-              600: "#005bc4",
-              700: "#004493",
-              800: "#002e62",
-              900: "#001731",
-            },
-          },
-        },
-      },
-    }),
-  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [], // V4 cenderung lebih minimal di sini, plugin tambahan diinstal terpisah
 };

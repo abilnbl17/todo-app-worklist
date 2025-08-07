@@ -1,3 +1,4 @@
+// src/store/reducers/todoSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const todoSlice = createSlice({
@@ -29,10 +30,29 @@ const todoSlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload;
     },
-    // Tambahkan reducers untuk kategori, filter, dll.
+    editTodo: (state, action) => {
+      // Tambahkan action ini untuk edit
+      const { id, text, description, category } = action.payload;
+      const todo = state.list.find((t) => t.id === id);
+      if (todo) {
+        todo.text = text;
+        todo.description = description;
+        todo.category = category;
+      }
+    },
   },
+  // Tambahkan extraReducers jika Anda ingin menangani action dari saga
+  // atau action non-slice lainnya (opsional untuk kasus ini)
+  // extraReducers: (builder) => {
+  //   builder
+  //     .addCase('FETCH_API_DATA', (state) => {
+  //       state.loading = true; // Atau tangani di saga seperti yang sudah ada
+  //       state.error = null;
+  //     });
+  // },
 });
 
+// Ekspor semua action yang dibutuhkan
 export const {
   addTodo,
   removeTodo,
@@ -40,5 +60,12 @@ export const {
   setTodos,
   setLoading,
   setError,
+  editTodo,
 } = todoSlice.actions;
+
+// Tambahkan action type yang akan di-dispatch dari komponen dan di-listen oleh saga
+// Ini adalah cara eksplisit untuk mendefinisikan action yang tidak memiliki reducer di slice ini.
+// Atau, Anda bisa membuat action creator terpisah jika action ini hanya untuk saga.
+export const FETCH_API_DATA = "FETCH_API_DATA"; // <-- Tambahkan ini
+
 export default todoSlice.reducer;
